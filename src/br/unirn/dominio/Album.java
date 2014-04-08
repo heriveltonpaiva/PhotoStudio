@@ -1,10 +1,13 @@
 package br.unirn.dominio;
 
+import java.util.Date;
+
+
 public class Album {
-	
+
 	private String nome;
 	private String descricao;
-	private String data;
+	private Date data;
 	
 	public Album() {
 		// TODO Auto-generated constructor stub
@@ -22,11 +25,11 @@ public class Album {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(String data) {
-		this.data = data;
+	public void setData(Date date) {
+		this.data = date;
 	}
 
 	@Override

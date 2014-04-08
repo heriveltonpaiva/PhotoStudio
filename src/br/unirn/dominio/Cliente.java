@@ -19,6 +19,7 @@ public class Cliente {
 	private String telefone;
 	private String celular;
 	private String email;
+	private Estado estado;
 	
 	
 	public Cliente() {
@@ -166,6 +167,13 @@ public class Cliente {
 	}
 
 
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
