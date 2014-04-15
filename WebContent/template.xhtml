@@ -9,6 +9,10 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Photo Studio</title>
+        
+         <link type="text/css" rel="stylesheet" href="css/sunny.css" />
+        
+        
         <style type="text/css">
             body {background-color: #eeeeee; font-size: 12px}
          
@@ -22,6 +26,7 @@
                     overflow:visible !important;
                 }
             </style>
+            
     </h:head>
     <h:body>
     
@@ -34,22 +39,24 @@
                 <p:layoutUnit id="top" position="north" size="50">
                  
                     <p:menubar>  
-           <p:menuitem value="Página Inicial" url="index.xhtml" icon="ui-icon-home" />
+           <p:menuitem value="Página Inicial" outcome="/index.xhtml" icon="ui-icon-home" />
   
      
   
         <p:submenu label="Menu Fotografo" icon="ui-icon-person">  
-            <p:menuitem value="Cadastrar Albuns" url="pages/album/form.xhtml" icon="ui-icon-circle-plus" /> 
-            <p:menuitem value="Cadastrar Fotos" url="pages/foto/form.xhtml"  icon="ui-icon-circle-plus"/> 
-            <p:menuitem value="Cadastrar Clientes" url="pages/cliente/form.xhtml" icon="ui-icon-circle-plus"/>  
-            <p:menuitem value="Consultar Albuns" url="pages/album/list.xhtml" icon="ui-icon-search"/>                        
-            <p:menuitem value="Consultar Fotos" url="pages/foto/list.xhtml" icon="ui-icon-search"/> 
-            <p:menuitem value="Consultar Clientes" url="pages/cliente/list.xhtml" icon="ui-icon-search"/>          
+        
+            
+            <p:menuitem value="Cadastrar Albuns" outcome="/pages/album/form.xhtml" icon="ui-icon-circle-plus" /> 
+            <p:menuitem value="Cadastrar Fotos" outcome="/pages/foto/form.xhtml"  icon="ui-icon-circle-plus"/> 
+            <p:menuitem value="Cadastrar Clientes" outcome="/pages/cliente/form.xhtml" icon="ui-icon-circle-plus"/>  
+            <p:menuitem value="Consultar Albuns" outcome="/pages/album/list.xhtml" icon="ui-icon-search"/>                        
+            <p:menuitem value="Consultar Fotos" outcome="/pages/foto/list.xhtml" icon="ui-icon-search"/> 
+            <p:menuitem value="Consultar Clientes" outcome="/pages/cliente/list.xhtml" icon="ui-icon-search"/>          
         </p:submenu>  
       
       <p:submenu label="Menu Administrador" icon="ui-icon-person">  
-            <p:menuitem value="Cadastrar Fotografo" url="pages/fotografo/form.xhtml" icon="ui-icon-circle-plus"/> 
-            <p:menuitem value="Consultar Fotografo" url="pages/fotografo/list.xhtml" icon="ui-icon-search" /> 
+            <p:menuitem value="Cadastrar Fotografo" outcome="/pages/fotografo/form.xhtml" icon="ui-icon-circle-plus"/> 
+            <p:menuitem value="Consultar Fotografo" outcome="/pages/fotografo/list.xhtml" icon="ui-icon-search" /> 
             <p:menuitem value="Acesso Restrito	" url="#" icon="ui-icon-key"/> 
             
           </p:submenu>
