@@ -1,5 +1,7 @@
 package br.unirn.dao;
 
-public class ClienteDao {
+import br.unirn.dominio.Cliente;
+
+public class ClienteDao extends GenericDaoImpl<Cliente> implements GenericDao<Cliente>{
 
 }

@@ -1,13 +1,12 @@
-package br.unirn.controller;
+package br.unirn.controle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 
-@ManagedBean(name = "fotografoMB")
 @SessionScoped
-public class FotografoController {
+@ManagedBean
+public class CarrinhoBean {
 
-	
 	
 }

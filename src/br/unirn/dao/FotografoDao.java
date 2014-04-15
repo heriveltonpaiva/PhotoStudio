@@ -1,5 +1,7 @@
 package br.unirn.dao;
 
-public class FotografoDao {
+import br.unirn.dominio.Fotografo;
+
+public class FotografoDao extends GenericDaoImpl<Fotografo> implements GenericDao<Fotografo>{
 
 }

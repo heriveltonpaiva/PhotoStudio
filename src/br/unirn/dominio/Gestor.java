@@ -16,11 +16,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,28 +30,26 @@ import javax.validation.constraints.Size;
  * @author HERIVELTON
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "gestor")
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
-    @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente"),
-    @NamedQuery(name = "Cliente.findByIdContatoContato", query = "SELECT c FROM Cliente c WHERE c.idContatoContato = :idContatoContato"),
-    @NamedQuery(name = "Cliente.findByIdUsuario", query = "SELECT c FROM Cliente c WHERE c.idUsuario = :idUsuario"),
-    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
-    @NamedQuery(name = "Cliente.findByCpf", query = "SELECT c FROM Cliente c WHERE c.cpf = :cpf"),
-    @NamedQuery(name = "Cliente.findByDataNascimento", query = "SELECT c FROM Cliente c WHERE c.dataNascimento = :dataNascimento"),
-    @NamedQuery(name = "Cliente.findByFoto", query = "SELECT c FROM Cliente c WHERE c.foto = :foto"),
-    @NamedQuery(name = "Cliente.findByLogin", query = "SELECT c FROM Cliente c WHERE c.login = :login"),
-    @NamedQuery(name = "Cliente.findBySenha", query = "SELECT c FROM Cliente c WHERE c.senha = :senha"),
-    @NamedQuery(name = "Cliente.findByIdEnderecoEndereco", query = "SELECT c FROM Cliente c WHERE c.idEnderecoEndereco = :idEnderecoEndereco")})
-public class Cliente implements Serializable {
+    @NamedQuery(name = "Gestor.findAll", query = "SELECT g FROM Gestor g"),
+    @NamedQuery(name = "Gestor.findByIdGestor", query = "SELECT g FROM Gestor g WHERE g.idGestor = :idGestor"),
+    @NamedQuery(name = "Gestor.findByIdUsuario", query = "SELECT g FROM Gestor g WHERE g.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Gestor.findByNome", query = "SELECT g FROM Gestor g WHERE g.nome = :nome"),
+    @NamedQuery(name = "Gestor.findByCpf", query = "SELECT g FROM Gestor g WHERE g.cpf = :cpf"),
+    @NamedQuery(name = "Gestor.findByDataNascimento", query = "SELECT g FROM Gestor g WHERE g.dataNascimento = :dataNascimento"),
+    @NamedQuery(name = "Gestor.findByFoto", query = "SELECT g FROM Gestor g WHERE g.foto = :foto"),
+    @NamedQuery(name = "Gestor.findByLogin", query = "SELECT g FROM Gestor g WHERE g.login = :login"),
+    @NamedQuery(name = "Gestor.findBySenha", query = "SELECT g FROM Gestor g WHERE g.senha = :senha"),
+    @NamedQuery(name = "Gestor.findByIdEnderecoEndereco", query = "SELECT g FROM Gestor g WHERE g.idEnderecoEndereco = :idEnderecoEndereco"),
+    @NamedQuery(name = "Gestor.findByIdContatoContato", query = "SELECT g FROM Gestor g WHERE g.idContatoContato = :idContatoContato")})
+public class Gestor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_cliente")
-    private Integer idCliente;
-    @Column(name = "id_contato_contato")
-    private Integer idContatoContato;
+    @Column(name = "id_gestor")
+    private Integer idGestor;
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_usuario")
@@ -87,21 +83,20 @@ public class Cliente implements Serializable {
     private String senha;
     @Column(name = "id_endereco_endereco")
     private Integer idEnderecoEndereco;
-    @OneToMany(mappedBy = "idClienteCliente")
-    private List<Fotografocliente> fotografoclienteList;
-    @JoinColumn(name = "id_carrinho_carrinho", referencedColumnName = "id_carrinho")
-    @OneToOne
-    private Carrinho idCarrinhoCarrinho;
+    @Column(name = "id_contato_contato")
+    private Integer idContatoContato;
+    @OneToMany(mappedBy = "idGestorGestor")
+    private List<Fotografo> fotografoList;
 
-    public Cliente() {
+    public Gestor() {
     }
 
-    public Cliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public Gestor(Integer idGestor) {
+        this.idGestor = idGestor;
     }
 
-    public Cliente(Integer idCliente, int idUsuario, String nome, String cpf, Date dataNascimento, String login, String senha) {
-        this.idCliente = idCliente;
+    public Gestor(Integer idGestor, int idUsuario, String nome, String cpf, Date dataNascimento, String login, String senha) {
+        this.idGestor = idGestor;
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
@@ -110,20 +105,12 @@ public class Cliente implements Serializable {
         this.senha = senha;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public Integer getIdGestor() {
+        return idGestor;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Integer getIdContatoContato() {
-        return idContatoContato;
-    }
-
-    public void setIdContatoContato(Integer idContatoContato) {
-        this.idContatoContato = idContatoContato;
+    public void setIdGestor(Integer idGestor) {
+        this.idGestor = idGestor;
     }
 
     public int getIdUsuario() {
@@ -190,37 +177,37 @@ public class Cliente implements Serializable {
         this.idEnderecoEndereco = idEnderecoEndereco;
     }
 
-    public List<Fotografocliente> getFotografoclienteList() {
-        return fotografoclienteList;
+    public Integer getIdContatoContato() {
+        return idContatoContato;
     }
 
-    public void setFotografoclienteList(List<Fotografocliente> fotografoclienteList) {
-        this.fotografoclienteList = fotografoclienteList;
+    public void setIdContatoContato(Integer idContatoContato) {
+        this.idContatoContato = idContatoContato;
     }
 
-    public Carrinho getIdCarrinhoCarrinho() {
-        return idCarrinhoCarrinho;
+    public List<Fotografo> getFotografoList() {
+        return fotografoList;
     }
 
-    public void setIdCarrinhoCarrinho(Carrinho idCarrinhoCarrinho) {
-        this.idCarrinhoCarrinho = idCarrinhoCarrinho;
+    public void setFotografoList(List<Fotografo> fotografoList) {
+        this.fotografoList = fotografoList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCliente != null ? idCliente.hashCode() : 0);
+        hash += (idGestor != null ? idGestor.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
+        if (!(object instanceof Gestor)) {
             return false;
         }
-        Cliente other = (Cliente) object;
-        if ((this.idCliente == null && other.idCliente != null) || (this.idCliente != null && !this.idCliente.equals(other.idCliente))) {
+        Gestor other = (Gestor) object;
+        if ((this.idGestor == null && other.idGestor != null) || (this.idGestor != null && !this.idGestor.equals(other.idGestor))) {
             return false;
         }
         return true;
@@ -228,7 +215,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "br.dominio.Cliente[ idCliente=" + idCliente + " ]";
+        return "br.dominio.Gestor[ idGestor=" + idGestor + " ]";
     }
     
 }

@@ -1,108 +1,189 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.unirn.dominio;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.io.Serializable;
+import java.math.BigInteger;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class Foto {
-	
-   private String descricao;
-   private double valor;
-   private byte[] arquivo;
-   private Date dataUpload;
-   private String legenda;
-   
-   public Foto() {
-	// TODO Auto-generated constructor stub
-}
+/**
+ *
+ * @author HERIVELTON
+ */
+@Entity
+@Table(name = "foto")
+@NamedQueries({
+    @NamedQuery(name = "Foto.findAll", query = "SELECT f FROM Foto f"),
+    @NamedQuery(name = "Foto.findByIdFoto", query = "SELECT f FROM Foto f WHERE f.idFoto = :idFoto"),
+    @NamedQuery(name = "Foto.findByDescricao", query = "SELECT f FROM Foto f WHERE f.descricao = :descricao"),
+    @NamedQuery(name = "Foto.findByValor", query = "SELECT f FROM Foto f WHERE f.valor = :valor"),
+    @NamedQuery(name = "Foto.findByArquivo", query = "SELECT f FROM Foto f WHERE f.arquivo = :arquivo"),
+    @NamedQuery(name = "Foto.findByDataUpload", query = "SELECT f FROM Foto f WHERE f.dataUpload = :dataUpload"),
+    @NamedQuery(name = "Foto.findByObs", query = "SELECT f FROM Foto f WHERE f.obs = :obs")})
+public class Foto implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_foto")
+    private Integer idFoto;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "descricao")
+    private String descricao;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "valor")
+    private BigInteger valor;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "arquivo")
+    private long arquivo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "data_upload")
+    private String dataUpload;
+    @Size(max = 255)
+    @Column(name = "obs")
+    private String obs;
+    @JoinColumn(name = "id_fotografo_fotografo", referencedColumnName = "id_fotografo")
+    @ManyToOne
+    private Fotografo idFotografoFotografo;
+    @JoinColumn(name = "id_carrinho_carrinho", referencedColumnName = "id_carrinho")
+    @ManyToOne
+    private Carrinho idCarrinhoCarrinho;
+    @JoinColumn(name = "id_album_album", referencedColumnName = "id_album")
+    @ManyToOne
+    private Album idAlbumAlbum;
 
-public String getDescricao() {
-	return descricao;
-}
+    public Foto() {
+    }
 
-public void setDescricao(String descricao) {
-	this.descricao = descricao;
-}
+    public Foto(Integer idFoto) {
+        this.idFoto = idFoto;
+    }
 
-public double getValor() {
-	return valor;
-}
+    public Foto(Integer idFoto, String descricao, BigInteger valor, long arquivo, String dataUpload) {
+        this.idFoto = idFoto;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.arquivo = arquivo;
+        this.dataUpload = dataUpload;
+    }
 
-public void setValor(double valor) {
-	this.valor = valor;
-}
+    public Integer getIdFoto() {
+        return idFoto;
+    }
 
-public byte[] getArquivo() {
-	return arquivo;
-}
+    public void setIdFoto(Integer idFoto) {
+        this.idFoto = idFoto;
+    }
 
-public void setArquivo(byte[] arquivo) {
-	this.arquivo = arquivo;
-}
+    public String getDescricao() {
+        return descricao;
+    }
 
-public Date getDataUpload() {
-	return dataUpload;
-}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-public void setDataUpload(Date dataUpload) {
-	this.dataUpload = dataUpload;
-}
+    public BigInteger getValor() {
+        return valor;
+    }
 
-public String getLegenda() {
-	return legenda;
-}
+    public void setValor(BigInteger valor) {
+        this.valor = valor;
+    }
 
-public void setLegenda(String legenda) {
-	this.legenda = legenda;
-}
+    public long getArquivo() {
+        return arquivo;
+    }
 
-@Override
-public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + Arrays.hashCode(arquivo);
-	result = prime * result
-			+ ((dataUpload == null) ? 0 : dataUpload.hashCode());
-	result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-	result = prime * result + ((legenda == null) ? 0 : legenda.hashCode());
-	long temp;
-	temp = Double.doubleToLongBits(valor);
-	result = prime * result + (int) (temp ^ (temp >>> 32));
-	return result;
-}
+    public void setArquivo(long arquivo) {
+        this.arquivo = arquivo;
+    }
 
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Foto other = (Foto) obj;
-	if (!Arrays.equals(arquivo, other.arquivo))
-		return false;
-	if (dataUpload == null) {
-		if (other.dataUpload != null)
-			return false;
-	} else if (!dataUpload.equals(other.dataUpload))
-		return false;
-	if (descricao == null) {
-		if (other.descricao != null)
-			return false;
-	} else if (!descricao.equals(other.descricao))
-		return false;
-	if (legenda == null) {
-		if (other.legenda != null)
-			return false;
-	} else if (!legenda.equals(other.legenda))
-		return false;
-	if (Double.doubleToLongBits(valor) != Double.doubleToLongBits(other.valor))
-		return false;
-	return true;
-}
-   
-   
-   
-	
+    public String getDataUpload() {
+        return dataUpload;
+    }
 
+    public void setDataUpload(String dataUpload) {
+        this.dataUpload = dataUpload;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public Fotografo getIdFotografoFotografo() {
+        return idFotografoFotografo;
+    }
+
+    public void setIdFotografoFotografo(Fotografo idFotografoFotografo) {
+        this.idFotografoFotografo = idFotografoFotografo;
+    }
+
+    public Carrinho getIdCarrinhoCarrinho() {
+        return idCarrinhoCarrinho;
+    }
+
+    public void setIdCarrinhoCarrinho(Carrinho idCarrinhoCarrinho) {
+        this.idCarrinhoCarrinho = idCarrinhoCarrinho;
+    }
+
+    public Album getIdAlbumAlbum() {
+        return idAlbumAlbum;
+    }
+
+    public void setIdAlbumAlbum(Album idAlbumAlbum) {
+        this.idAlbumAlbum = idAlbumAlbum;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idFoto != null ? idFoto.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Foto)) {
+            return false;
+        }
+        Foto other = (Foto) object;
+        if ((this.idFoto == null && other.idFoto != null) || (this.idFoto != null && !this.idFoto.equals(other.idFoto))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.dominio.Foto[ idFoto=" + idFoto + " ]";
+    }
+    
 }

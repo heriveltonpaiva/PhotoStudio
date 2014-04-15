@@ -1,12 +1,10 @@
-package br.unirn.controller;
+package br.unirn.controle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean(name = "fotoMB")
 @SessionScoped
-public class FotoController {
+@ManagedBean
+public class FotoBean {
 
-	
-	
 }

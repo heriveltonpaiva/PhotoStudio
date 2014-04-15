@@ -1,75 +1,154 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package br.unirn.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
-public class Album {
+/**
+ *
+ * @author HERIVELTON
+ */
+@Entity
+@Table(name = "album")
+@NamedQueries({
+    @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a"),
+    @NamedQuery(name = "Album.findByIdAlbum", query = "SELECT a FROM Album a WHERE a.idAlbum = :idAlbum"),
+    @NamedQuery(name = "Album.findByDescricao", query = "SELECT a FROM Album a WHERE a.descricao = :descricao"),
+    @NamedQuery(name = "Album.findByData", query = "SELECT a FROM Album a WHERE a.data = :data"),
+    @NamedQuery(name = "Album.findByObs", query = "SELECT a FROM Album a WHERE a.obs = :obs")})
+public class Album implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_album")
+    private Integer idAlbum;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "descricao")
+    private String descricao;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "data")
+    @Temporal(TemporalType.DATE)
+    private Date data;
+    @Size(max = 100)
+    @Column(name = "obs")
+    private String obs;
+    @JoinColumn(name = "id_fotografo_fotografo", referencedColumnName = "id_fotografo")
+    @ManyToOne
+    private Fotografo idFotografoFotografo;
+    @OneToMany(mappedBy = "idAlbumAlbum")
+    private List<Foto> fotoList;
 
-	private String nome;
-	private String descricao;
-	private Date data;
-	
-	public Album() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public Date getData() {
-		return data;
-	}
-	public void setData(Date date) {
-		this.data = date;
-	}
+    public Album() {
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
+    public Album(Integer idAlbum) {
+        this.idAlbum = idAlbum;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Album other = (Album) obj;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
+    public Album(Integer idAlbum, String descricao, Date data) {
+        this.idAlbum = idAlbum;
+        this.descricao = descricao;
+        this.data = data;
+    }
 
-	
-	
+    public Integer getIdAlbum() {
+        return idAlbum;
+    }
+
+    public void setIdAlbum(Integer idAlbum) {
+        this.idAlbum = idAlbum;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public Fotografo getIdFotografoFotografo() {
+        return idFotografoFotografo;
+    }
+
+    public void setIdFotografoFotografo(Fotografo idFotografoFotografo) {
+        this.idFotografoFotografo = idFotografoFotografo;
+    }
+
+    public List<Foto> getFotoList() {
+        return fotoList;
+    }
+
+    public void setFotoList(List<Foto> fotoList) {
+        this.fotoList = fotoList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idAlbum != null ? idAlbum.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Album)) {
+            return false;
+        }
+        Album other = (Album) object;
+        if ((this.idAlbum == null && other.idAlbum != null) || (this.idAlbum != null && !this.idAlbum.equals(other.idAlbum))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.dominio.Album[ idAlbum=" + idAlbum + " ]";
+    }
+    
 }
