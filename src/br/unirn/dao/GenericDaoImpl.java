@@ -1,11 +1,14 @@
 package br.unirn.dao;
 
+import java.awt.Event;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import br.unirn.dominio.Estado;
 
 
 
@@ -34,22 +37,19 @@ public  class GenericDaoImpl<T> implements GenericDao<T> {
 		
 	}
 
-	@Override
-	public T findById(Serializable id) {
+	public Object findByName(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		return em.find(Object.class, name);
 	}
 
-	@Override
-	public List<T> findAll() {
-		
-		return null;
-	}
+	
 
 	@Override
 	public void delete(Object entity) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

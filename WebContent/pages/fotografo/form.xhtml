@@ -9,37 +9,56 @@
     xmlns:p="http://primefaces.org/ui"
 	>
 
+
 <ui:composition template="/template.xhtml">
 
 	<ui:define name="centro">
-	
-    <p:panel>
 	<h:form >
-
-	<h:panelGrid columns="2">
-	<p:outputLabel value="Nome"/>
-	<h:inputText />
-	<p:outputLabel value="Endereço"/>
-	<h:inputText />
-	<p:outputLabel value="Bairro"/>
-	<h:inputText />
-	<p:outputLabel value="Estado"/>
-	<h:inputText />
-	<p:outputLabel value="Pais"/>
-	<h:inputText />
-	<p:outputLabel value="Telefone"/>
-	<h:inputText />
-	<p:outputLabel value="Celular"/>
-	<h:inputText />
-	<p:outputLabel value="Email"/>
-	<h:inputText />
+    <p:panel >
 	
+
+	<h:panelGrid columns="4" >
+	<p:outputLabel value="Nome"/>
+	<p:inputText value="#{fotografoBean.fotografo.nome}" size="40"/>
+	<p:outputLabel value="CPF"/>
+	<p:inputText value="#{fotografoBean.fotografo.cpf}" size="40"/>
+	 <h:outputText value="Data de Nascimento:" />  
+            <h:outputText value="#{fotografoBean.fotografo.dataNascimento}">  
+                <f:convertDateTime pattern="d/M/yyyy"/>  
+            </h:outputText>  
+	<p:outputLabel value="Endereço"/>
+	<p:inputText value="#{fotografoBean.endereco.descricao}" size="40"/>
+	<p:outputLabel value="Numero"/>
+	<p:inputText value="#{fotografoBean.endereco.numero}" size="5"/>
+	<p:outputLabel value="Bairro"/>
+	<p:inputText value="#{fotografoBean.bairro.descricao}" size="20"/>
+	<p:outputLabel value="Cidade"/>
+	<p:inputText value="#{fotografoBean.cidade.descricao}" size="25"/>
+	<p:outputLabel value="Estado"/>
+	<p:inputText value="#{fotografoBean.estado.descricao}" size="5"/>
+	<p:outputLabel value="CEP"/>
+	<p:inputText value="#{fotografoBean.endereco.cep}" size="10"/>
+	
+	<p:outputLabel value="Telefone"/>
+	<p:inputText value="#{fotografoBean.contato.telefone}" size="10"/>
+	<p:outputLabel value="Celular"/>
+	<p:inputText value="#{fotografoBean.contato.celular}" size="10"/>
+	
+	<p:outputLabel value="Email"/>
+	<p:inputText value="#{fotografoBean.contato.email}" size="35"/>
+	
+	<p:outputLabel value="Login"/>
+	<p:inputText value="#{fotografoBean.fotografo.login}" size="15"/>
+	<p:outputLabel value="Senha"/>
+	<p:password value="#{fotografoBean.fotografo.senha}" size="15"/>
+	
+	
+	
+	<p:commandButton value="Salvar" actionListener="#{fotografoBean.salvar}" icon="ui-icon-disk" /> 
 	</h:panelGrid>
 	
-	<p:commandButton value="Salvar" actionListener="#" icon="ui-icon-disk" /> 
-	
-	</h:form>
 	</p:panel>
+	</h:form>
 	</ui:define>
 </ui:composition>
 </html>
